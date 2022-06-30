@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textMin = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -57,6 +57,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textMax = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -107,12 +108,12 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // textBox3
+            // textMin
             // 
-            this.textBox3.Location = new System.Drawing.Point(68, 214);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 27);
-            this.textBox3.TabIndex = 5;
+            this.textMin.Location = new System.Drawing.Point(68, 214);
+            this.textMin.Name = "textMin";
+            this.textMin.Size = new System.Drawing.Size(61, 27);
+            this.textMin.TabIndex = 5;
             // 
             // label3
             // 
@@ -278,11 +279,19 @@
             this.textBox13.Size = new System.Drawing.Size(125, 27);
             this.textBox13.TabIndex = 25;
             // 
+            // textMax
+            // 
+            this.textMax.Location = new System.Drawing.Point(174, 214);
+            this.textMax.Name = "textMax";
+            this.textMax.Size = new System.Drawing.Size(50, 27);
+            this.textMax.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textMax);
             this.Controls.Add(this.textBox13);
             this.Controls.Add(this.textBox12);
             this.Controls.Add(this.label8);
@@ -302,7 +311,7 @@
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textMin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
@@ -323,7 +332,7 @@
         private Label label1;
         private Label label2;
         private System.Windows.Forms.Timer timer1;
-        private TextBox textBox3;
+        private TextBox textMin;
         private Label label3;
         private Button button2;
         private TextBox textBox4;
@@ -345,5 +354,6 @@
         private Label label8;
         private TextBox textBox12;
         private TextBox textBox13;
+        private TextBox textMax;
     }
 }

@@ -1,5 +1,8 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace WinFormsApp1
 {
@@ -12,30 +15,26 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             timer1.Enabled = true;
-
-            Thread.Sleep(2000);
         }
-
         int a = 0;
         int b = 0;
         int c;
+        Random rnd = new Random();
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             if (c == 0)
             {
-                a = (Convert.ToInt32(textBox3.Text)) * 60;
+                //a = (Convert.ToInt32(textBox3.Text)) * 60;
+                int rndmin = Convert.ToInt16(textMin.Text);
+                int rndmax = Convert.ToInt16(textMax.Text);
+                a = rnd.Next(rndmin, rndmax);
                 b = 0;
                 yagma();
             }
-
             c = a - b;
             label3.Text = c.ToString();
             b++;
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,49 +44,51 @@ namespace WinFormsApp1
 
         public void yagma()
         {
+            //new DriverManager().SetUpDriver(new EdgeConfig());
+            new DriverManager().SetUpDriver(new ChromeConfig());
 
-            var driver = new EdgeDriver(@"C:\Users\Pc\source\repos\WinFormsApp1\WinFormsApp1\edgedriver");
-            driver.Navigate().GoToUrl("https://ts31.x3.international.travian.com/login.php");
+            //var service = EdgeDriverService.CreateDefaultService();
+            var service = ChromeDriverService.CreateDefaultService();
 
+            service.HideCommandPromptWindow = true;
+
+            //var driver = new EdgeDriver(service);
+            var driver = new ChromeDriver(service);
+
+
+            driver.Navigate().GoToUrl("https://ts31.x3.europe.travian.com/dorf1.php");
             Thread.Sleep(1000);
 
-            IWebElement id = driver.FindElement(By.Name("name"));
-            IWebElement pw = driver.FindElement(By.Name("password")); ;
-            IWebElement login = driver.FindElement(By.XPath("//button[@value='Login']"));
+            var asd = driver.FindElements(By.XPath("/html/body/div[1]/div[1]/div[2]/span[1]/a/span"));
+            foreach (var x in asd)
+            {
+                if (x != null)
+                {
+                    x.Click();
+                }
+            }
+            Thread.Sleep(1000);
+            IWebElement id = driver.FindElement(By.XPath("//*[@id='loginForm']/tbody/tr[1]/td[2]/input"));
+            IWebElement pw = driver.FindElement(By.XPath("//*[@id='loginForm']/tbody/tr[2]/td[2]/input"));
+            IWebElement login = driver.FindElement(By.XPath("//button[@type='submit']"));
 
             id.SendKeys(textBox1.Text);
             Thread.Sleep(1000);
             pw.SendKeys(textBox2.Text);
             Thread.Sleep(1000);
             login.Click();
-
             Thread.Sleep(1000);
 
-
-            driver.Navigate().GoToUrl("https://ts31.x3.international.travian.com/build.php?id=39&gid=16&tt=99");
-
+            driver.Navigate().GoToUrl("https://ts31.x3.europe.travian.com/build.php?id=39&gid=16&tt=99");
             Thread.Sleep(1000);
 
-            IWebElement yagma1 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(4572)']"));
-            IWebElement yagma2 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(3248)']"));
-            IWebElement yagma3 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(4395)']"));
-            IWebElement yagma4 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(5165)']"));
-            IWebElement yagma5 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(5204)']"));
-            IWebElement yagma6 = driver.FindElement(By.XPath("//button[@onclick='Travian.Game.RaidList.startRaid(5162)']"));
+            var yagmalist = driver.FindElements(By.XPath("//button[@value='Baþlangýç']"));
 
-            yagma1.Click();
-            Thread.Sleep(1000);
-            yagma2.Click();
-            Thread.Sleep(1000);
-            yagma3.Click();
-            Thread.Sleep(1000);
-            yagma4.Click();
-            Thread.Sleep(1000);
-            yagma5.Click();
-            Thread.Sleep(1000);
-            yagma6.Click();
-            Thread.Sleep(1000);
-
+            foreach (var el in yagmalist)
+            {
+                el.Click();
+                Thread.Sleep(1500);
+            }
             driver.Close();
         }
 
@@ -100,7 +101,7 @@ namespace WinFormsApp1
             Thread.Sleep(1000);
 
             IWebElement id = driver.FindElement(By.Name("name"));
-            IWebElement pw = driver.FindElement(By.Name("password")); ;
+            IWebElement pw = driver.FindElement(By.Name("password"));
             IWebElement login = driver.FindElement(By.XPath("//button[@value='Login']"));
 
             id.SendKeys(textBox1.Text);
